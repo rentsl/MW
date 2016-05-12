@@ -26,12 +26,6 @@
                android:layout_height="100dp"
                android:text="开始测试"
                 android:textSize="30sp"/>
-            <Button android:id="@+id/Button_write"
-                android:layout_width="350dp"
-                android:layout_height="100dp"
-                android:text="录入单词"
-                android:textSize="30sp"
-                android:layout_below="@+id/button_start" />
             <Button android:id="@+id/Button_table"
                 android:layout_width="350dp"
                 android:layout_height="100dp"

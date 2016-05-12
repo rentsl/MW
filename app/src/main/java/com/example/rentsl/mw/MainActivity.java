@@ -65,17 +65,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Button buttonstart = (Button) findViewById(R.id.Button_start);
-        Button buttonwrite = (Button) findViewById(R.id.Button_write);
         Button buttontable = (Button) findViewById(R.id.Button_table);
-
-        buttonwrite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent();
-                intent.setClass(MainActivity.this, InputWords.class);
-                startActivity(intent);
-            }
-        });
+        
 
         buttonstart.setOnClickListener(new View.OnClickListener() {
             @Override
