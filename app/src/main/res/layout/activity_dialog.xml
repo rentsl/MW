@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_layout"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="#369">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:padding="5dp"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:text="单词用尽" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:layout_marginTop="1dp"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:text="单词用尽，是否退出？" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:layout_marginBottom="8dp">
+
+        <Button
+            android:id="@+id/exitBtn0"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="好的"
+            android:textSize="16sp"
+            android:textColor="#333"
+            android:gravity="center"
+            android:onClick="exitbutton0"
+            android:background="#fff" />
+
+        <Button
+            android:id="@+id/exitBtn1"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="继续"
+            android:textSize="16sp"
+            android:textColor="#333"
+            android:gravity="center"
+            android:onClick="exitbutton1"
+            android:background="#fff" />
+    </LinearLayout>
+
+</LinearLayout>
