@@ -50,15 +50,20 @@ public class CreateTableDialog extends Activity {
             public void onClick(View v) {
                 ArrayList<HashMap<String, Object>> addwords = new ArrayList<HashMap<String, Object>>();
                 HashMap<String, Object> map = new HashMap<String, Object>();
-                map.put("List", editText.getText().toString());
-                map.put("Filename", editText.getText().toString() + ".set");
-                addwords.add(map);
-                writeFiles(ListToString(addwords));
-                SelectTable.instance.finish();
-                finish();
-                Intent intent = new Intent();
-                intent.setClass(SelectTable.instance, SelectTable.class); //关于刷新还有很多疑问
-                startActivity(intent);
+                if(!checkname(editText.getText().toString())){
+                    Toast.makeText(getApplicationContext(),"列表名重复",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    map.put("List", editText.getText().toString());
+                    map.put("Filename", editText.getText().toString() + ".set");
+                    addwords.add(map);
+                    writeFiles(ListToString(addwords));
+                    SelectTable.instance.finish();
+                    finish();
+                    Intent intent = new Intent();
+                    intent.setClass(SelectTable.instance, SelectTable.class); //关于刷新还有很多疑问
+                    startActivity(intent);
+                }
 
             }
         });
@@ -147,6 +152,20 @@ public class CreateTableDialog extends Activity {
 
         this.finish();
         tests.instance.finish();//tests 这个Activity
+    }
+    /**检查新建的表名是否重复*/
+    public boolean checkname(String name){
+        String str1;
+        boolean flage = true;
+        String str2 = editText.getText().toString();
+        for(int i = 0;i < mDate.size();i++){
+            str1 = mDate.get(i).get("List").toString();
+            if(str1.equals(str2)){
+                flage = false;
+                break;
+            }
+        }
+      return flage;
     }
 
 
