@@ -21,17 +21,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <Button android:id="@+id/Button_start"
+            <ImageButton android:id="@+id/Button_start"
                android:layout_width="350dp"
-               android:layout_height="100dp"
-               android:text="开始测试"
-                android:textSize="30sp"/>
-            <Button android:id="@+id/Button_table"
+               android:layout_height="350dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/my_test_button"
+                android:background="@android:color/transparent"/>
+            <ImageButton android:id="@+id/Button_table"
                 android:layout_width="350dp"
-                android:layout_height="100dp"
-                android:text="单词管理"
-                android:textSize="30sp"
-                android:layout_below="@+id/button_start" />
+                android:layout_height="350dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/my_setting_button"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="20dp"/>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

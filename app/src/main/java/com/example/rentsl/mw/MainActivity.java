@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -64,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button buttonstart = (Button) findViewById(R.id.Button_start);
-        Button buttontable = (Button) findViewById(R.id.Button_table);
+        ImageButton buttonstart = (ImageButton) findViewById(R.id.Button_start);
+        ImageButton buttontable = (ImageButton) findViewById(R.id.Button_table);
 
 
         buttonstart.setOnClickListener(new View.OnClickListener() {
