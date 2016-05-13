@@ -33,6 +33,7 @@ public class tests extends AppCompatActivity {
     int Wrandom[] = null;
     int WWrandom[] = null;
     int Trandom[] = new int[4];
+    boolean P;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,181 +44,165 @@ public class tests extends AppCompatActivity {
         testname = intent.getStringExtra("tablename");
         if(testname != null) FILENAME = testname;
         mDate = getDate();
-        Wrandom = new int[getDate().size()];
-        WWrandom = new int[getDate().size()];
+        P = checkwordsnumber();
+        if(!P) {
+            Toast.makeText(getApplicationContext(),"单词少于4个",Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else {
+            Wrandom = new int[getDate().size()];
+            WWrandom = new int[getDate().size()];
+            instance = this;//用于在伪弹窗中关闭test这个activity
+            WcreatRandom();
+            System.arraycopy(Wrandom, 0, WWrandom, 0, Wrandom.length);
+            WcreatRandom();
+            TcreatRandom();
+            Link();
+            final TextView words = (TextView) findViewById(R.id.Words);
+            final Button button1 = (Button) findViewById(R.id.Button1);
+            final Button button2 = (Button) findViewById(R.id.Button2);
+            final Button button3 = (Button) findViewById(R.id.Button3);
+            final Button button4 = (Button) findViewById(R.id.Button4);
+            //初始化测试页面的数据
+            words.setText(mDate.get(Tx - 1).get("Words").toString());
+            button1.setText(mDate.get(Bu[0] - 1).get("Explain").toString());
+            button2.setText(mDate.get(Bu[1] - 1).get("Explain").toString());
+            button3.setText(mDate.get(Bu[2] - 1).get("Explain").toString());
+            button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
 
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Bu[0] == Tx)
+                        Toast.makeText(getApplicationContext(), "你答对了！！" + button1.getText(), Toast.LENGTH_SHORT).show();
+                    else {
+                        //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("number", Tx);
+                        intent.setClass(tests.this, ErrorLearing.class);
+                        startActivity(intent);
+                    }
+                    Link();
+                    words.setText(mDate.get(Tx - 1).get("Words").toString());
+                    button1.setText(mDate.get(Bu[0] - 1).get("Explain").toString());
+                    button2.setText(mDate.get(Bu[1] - 1).get("Explain").toString());
+                    button3.setText(mDate.get(Bu[2] - 1).get("Explain").toString());
+                    button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
+                    if (wordsOver() == 1) {
+                        Wrunflag = 1;
+                        Intent intent = new Intent();
+                        intent.setClass(tests.this, Dialog.class);
+                        startActivity(intent);
+                    }
+                    WcreatRandom();
+                    TcreatRandom();
 
-        instance = this;//用于在伪弹窗中关闭test这个activity
-
-        WcreatRandom();
-        System.arraycopy(Wrandom, 0, WWrandom, 0, Wrandom.length);
-        WcreatRandom();
-        TcreatRandom();
-        Link();
-
-        final TextView words = (TextView) findViewById(R.id.Words);
-        final Button button1 = (Button) findViewById(R.id.Button1);
-        final Button button2 = (Button) findViewById(R.id.Button2);
-        final Button button3 = (Button) findViewById(R.id.Button3);
-        final Button button4 = (Button) findViewById(R.id.Button4);
-
-
-//        Wordslist = getSharedPreferences("wordslist1",MODE_PRIVATE);
-//        Explainlist = getSharedPreferences("explainlist1",MODE_PRIVATE);
-
-        words.setText(mDate.get(Tx-1).get("Words").toString());
-        button1.setText(mDate.get(Bu[0]-1).get("Explain").toString());
-        button2.setText(mDate.get(Bu[1]-1).get("Explain").toString());
-        button3.setText(mDate.get(Bu[2]-1).get("Explain").toString());
-        button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
-
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(Bu[0] == Tx) Toast.makeText(getApplicationContext(),"你答对了！！"+button1.getText(), Toast.LENGTH_SHORT).show();
-                else {
-                    //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent();
-                    intent.putExtra("number", Tx);
-                    intent.setClass(tests.this, ErrorLearing.class);
-                    startActivity(intent);
                 }
-                Link();
-                words.setText(mDate.get(Tx-1).get("Words").toString());
-                button1.setText(mDate.get(Bu[0]-1).get("Explain").toString());
-                button2.setText(mDate.get(Bu[1]-1).get("Explain").toString());
-                button3.setText(mDate.get(Bu[2]-1).get("Explain").toString());
-                button4.setText(mDate.get(Bu[3]-1).get("Explain").toString());
-                if(wordsOver() == 1){
-                    Wrunflag = 1;
-                    Intent intent=new Intent();
+            });
+
+            button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Bu[1] == Tx)
+                        Toast.makeText(getApplicationContext(), "你答对了！！" + button2.getText(), Toast.LENGTH_SHORT).show();
+                    else {
+                        //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("number", Tx);
+                        intent.setClass(tests.this, ErrorLearing.class);
+                        startActivity(intent);
+                    }
+                    Link();
+                    words.setText(mDate.get(Tx - 1).get("Words").toString());
+                    button1.setText(mDate.get(Bu[0] - 1).get("Explain").toString());
+                    button2.setText(mDate.get(Bu[1] - 1).get("Explain").toString());
+                    button3.setText(mDate.get(Bu[2] - 1).get("Explain").toString());
+                    button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
+                    if (wordsOver() == 1) {
+                        Wrunflag = 1;
+                        Intent intent = new Intent();
+                        intent.setClass(tests.this, Dialog.class);
+                        startActivity(intent);
+                    }
+                    WcreatRandom();
+                    TcreatRandom();
+
+                }
+            });
+
+            button3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Bu[2] == Tx)
+                        Toast.makeText(getApplicationContext(), "你答对了！！" + button3.getText(), Toast.LENGTH_SHORT).show();
+                    else {
+                        //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("number", Tx);
+                        intent.setClass(tests.this, ErrorLearing.class);
+                        startActivity(intent);
+                    }
+                    Link();
+                    words.setText(mDate.get(Tx - 1).get("Words").toString());
+                    button1.setText(mDate.get(Bu[0] - 1).get("Explain").toString());
+                    button2.setText(mDate.get(Bu[1] - 1).get("Explain").toString());
+                    button3.setText(mDate.get(Bu[2] - 1).get("Explain").toString());
+                    button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
+                    if (wordsOver() == 1) {
+                        Wrunflag = 1;
+                        Intent intent = new Intent();
+                        intent.setClass(tests.this, Dialog.class);
+                        startActivity(intent);
+                    }
+                    WcreatRandom();
+                    TcreatRandom();
+
+                }
+            });
+
+            button4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Bu[3] == Tx)
+                        Toast.makeText(getApplicationContext(), "你答对了！！" + button4.getText(), Toast.LENGTH_SHORT).show();
+                    else {
+                        //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("number", Tx);
+                        intent.setClass(tests.this, ErrorLearing.class);
+                        startActivity(intent);
+                    }
+                    Link();
+                    words.setText(mDate.get(Tx - 1).get("Words").toString());
+                    button1.setText(mDate.get(Bu[0] - 1).get("Explain").toString());
+                    button2.setText(mDate.get(Bu[1] - 1).get("Explain").toString());
+                    button3.setText(mDate.get(Bu[2] - 1).get("Explain").toString());
+                    button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
+                    if (wordsOver() == 1) {
+                        Wrunflag = 1;
+                        Intent intent = new Intent();
+                        intent.setClass(tests.this, Dialog.class);
+                        startActivity(intent);
+                    }
+                    WcreatRandom();
+                    TcreatRandom();
+
+                }
+            });
+
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
                     intent.setClass(tests.this, Dialog.class);
                     startActivity(intent);
                 }
-                WcreatRandom();
-                TcreatRandom();
-
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(Bu[1] == Tx) Toast.makeText(getApplicationContext(),"你答对了！！"+button2.getText(), Toast.LENGTH_SHORT).show();
-                else {
-                    //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent();
-                    intent.putExtra("number", Tx);
-                    intent.setClass(tests.this, ErrorLearing.class);
-                    startActivity(intent);
-                }
-                Link();
-                words.setText(mDate.get(Tx-1).get("Words").toString());
-                button1.setText(mDate.get(Bu[0]-1).get("Explain").toString());
-                button2.setText(mDate.get(Bu[1]-1).get("Explain").toString());
-                button3.setText(mDate.get(Bu[2]-1).get("Explain").toString());
-                button4.setText(mDate.get(Bu[3]-1).get("Explain").toString());
-                if(wordsOver() == 1){
-                    Wrunflag = 1;
-                    Intent intent=new Intent();
-                    intent.setClass(tests.this, Dialog.class);
-                    startActivity(intent);
-                }
-                WcreatRandom();
-                TcreatRandom();
-
-            }
-        });
-
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(Bu[2] == Tx) Toast.makeText(getApplicationContext(),"你答对了！！"+button3.getText(), Toast.LENGTH_SHORT).show();
-                else {
-                    //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent();
-                    intent.putExtra("number", Tx);
-                    intent.setClass(tests.this, ErrorLearing.class);
-                    startActivity(intent);
-                }
-                Link();
-                words.setText(mDate.get(Tx-1).get("Words").toString());
-                button1.setText(mDate.get(Bu[0]-1).get("Explain").toString());
-                button2.setText(mDate.get(Bu[1]-1).get("Explain").toString());
-                button3.setText(mDate.get(Bu[2]-1).get("Explain").toString());
-                button4.setText(mDate.get(Bu[3]-1).get("Explain").toString());
-                if(wordsOver() == 1){
-                    Wrunflag = 1;
-                    Intent intent=new Intent();
-                    intent.setClass(tests.this, Dialog.class);
-                    startActivity(intent);
-                }
-                WcreatRandom();
-                TcreatRandom();
-
-            }
-        });
-
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(Bu[3] == Tx) Toast.makeText(getApplicationContext(),"你答对了！！"+button4.getText(), Toast.LENGTH_SHORT).show();
-                else {
-                    //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent();
-                    intent.putExtra("number", Tx);
-                    intent.setClass(tests.this, ErrorLearing.class);
-                    startActivity(intent);
-                }
-                Link();
-//                words.setText(Wordslist.getString(Integer.toString(Tx-1),"0"));
-//                button1.setText(Explainlist.getString(Integer.toString(Bu[0]-1),"0"));
-//                button2.setText(Explainlist.getString(Integer.toString(Bu[1]-1),"0"));
-//                button3.setText(Explainlist.getString(Integer.toString(Bu[2]-1),"0"));
-//                button4.setText(Explainlist.getString(Integer.toString(Bu[3]-1),"0"));
-                words.setText(mDate.get(Tx-1).get("Words").toString());
-                button1.setText(mDate.get(Bu[0]-1).get("Explain").toString());
-                button2.setText(mDate.get(Bu[1]-1).get("Explain").toString());
-                button3.setText(mDate.get(Bu[2]-1).get("Explain").toString());
-                button4.setText(mDate.get(Bu[3]-1).get("Explain").toString());
-                if(wordsOver() == 1){
-                    Wrunflag = 1;
-                    Intent intent=new Intent();
-                    intent.setClass(tests.this, Dialog.class);
-                    startActivity(intent);
-                }
-                WcreatRandom();
-                TcreatRandom();
-
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent();
-                intent.setClass(tests.this, Dialog.class);
-                startActivity(intent);
-            }
-        });
+            });
+        }
 
 
     }
-
-//    private int[] WcreatRandom(){
-//        int number = 50; //控制随机数产生的范围
-//        List arr = new ArrayList();
-//        for(int i = 0;i < 50;i++) arr.add(i+1);//为ArrayList添加元素
-//        for(int j = 0;j < Wrandom.length;j++){
-//            int index = (int)(Math.random()*number);//产生一个随机数索引
-//            Wrandom[j] = (int)arr.get(index);
-//            arr.remove(index);//移除已取过的数
-//            number--;
-//
-//        }
-//        return Wrandom;
-//    }
 
     private int[] WcreatRandom(){
         int L = mDate.size();
@@ -253,15 +238,6 @@ public class tests extends AppCompatActivity {
         return Trandom;
     }
 
-//    private void Link(){
-//        Tx = Wrandom[0];
-//        for(int i = 0;i < 4;i++){
-//            if(Trandom[i] == 1) Bu[i] = Wrandom[0];
-//            if(Trandom[i] == 2) Bu[i] = Wrandom[1];
-//            if(Trandom[i] == 3) Bu[i] = Wrandom[2];
-//            if(Trandom[i] == 4) Bu[i] = Wrandom[3];
-//        }
-//    }
 /*****************链接两组随机数******************/
     private void Link(){
         Tx = WWrandom[Wrunflag-1];
@@ -280,6 +256,13 @@ public class tests extends AppCompatActivity {
         return flag;
     }
 
+/*****************判断单词表是否遍历完**************/
+    private boolean checkwordsnumber(){
+        if(mDate.size() < 4)
+            return false;
+        else
+            return true;
+    }
 
     //得到数据
     public ArrayList<HashMap<String, Object>> getDate() {
@@ -346,8 +329,6 @@ public class tests extends AppCompatActivity {
         }
         return mylist;
     }
-
-
 
 }
 

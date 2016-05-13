@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonstart = (Button) findViewById(R.id.Button_start);
         Button buttontable = (Button) findViewById(R.id.Button_table);
-        
+
 
         buttonstart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,3 +219,4 @@ public class MainActivity extends AppCompatActivity {
 //存在的bug
 //输入不完整就提交的话程序会崩溃
 //单词列表重名问题（会共享一个文件）
+//单词少于4个 需要：不能进行测试

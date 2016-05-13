@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -55,13 +56,21 @@ public class CreateWordsListDialog extends Activity {
             @Override
             public void onClick(View v) {
                 mDate = getDate();
-                writeFiles(ListToString(mDate));
-                wordslist.instance.finish();
-                finish();
-                Intent intent = new Intent();
-                intent.putExtra("CWLDtoWLname",FILENAME);//传到wordslist的值
-                intent.setClass(wordslist.instance, wordslist.class); //关于刷新还有很多疑问
-                startActivity(intent);
+                String str1 = editwords.getText().toString().trim();
+                String str2 = editexplain.getText().toString().trim();
+                /**判断是否输入完整*/
+                if(TextUtils.isEmpty(str1) || TextUtils.isEmpty(str2)){
+                    Toast.makeText(getApplicationContext(),"输入有误",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    writeFiles(ListToString(mDate));
+                    wordslist.instance.finish();
+                    finish();
+                    Intent intent = new Intent();
+                    intent.putExtra("CWLDtoWLname", FILENAME);//传到wordslist的值
+                    intent.setClass(wordslist.instance, wordslist.class); //关于刷新还有很多疑问
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -113,8 +122,8 @@ public class CreateWordsListDialog extends Activity {
     // 得到数据
     public ArrayList<HashMap<String, Object>> getDate(){
         ArrayList<HashMap<String, Object>> mylist = new ArrayList<HashMap<String, Object>>();
-
         HashMap<String, Object> map = new HashMap<String, Object>();
+
         map.put("Words", editwords.getText().toString());
         map.put("Explain",editexplain.getText().toString());
         mylist.add(map);
