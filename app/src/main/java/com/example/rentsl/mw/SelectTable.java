@@ -18,8 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.example.rentsl.mw.MyListView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -104,15 +107,48 @@ public class SelectTable extends AppCompatActivity {
                         holder = new ViewHolder();
                         convertView = mInflater.inflate(R.layout.item_home, null);
                         /**得到各个控件的对象*/
-                        holder.wordslist = (TextView) convertView.findViewById(R.id.id_num);
-                        holder.button = (Button)convertView.findViewById(R.id.button_id);
+                        holder.img = (ImageView)convertView.findViewById(R.id.img_id);
+                        holder.wordslist = (TextView)convertView.findViewById(R.id.id_num);
+                        holder.button = (ImageButton)convertView.findViewById(R.id.button_id);
+                        holder.wordslist.setText(mDate.get(position).get("List").toString());
+                        int number = 0;
+                        number = position-(position/10)*10;
+                        String name = "l"+number;
+                        int id = getResources().getIdentifier(name,"drawable","com.example.rentsl.mw");
+                        holder.img.setImageResource(id);
+                        holder.img.setImageResource(id);
+                        holder.button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mDate.remove(position);
+                                MyAdapter.this.notifyDataSetChanged();
+                                writeFiles(ListToString(mDate));
+                            }
+                        });
+                        convertView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent=new Intent();
+                                intent.putExtra("listname",mDate.get(position).get("Filename").toString());
+                                intent.setClass(SelectTable.this, wordslist.class);
+                                startActivity(intent);
+                            }
+                        });
                         convertView.setTag(holder);//绑定ViewHolder对象
                         break;
                     case CREATTABLE:
                         createholder = new ViewCreateHolder();
                         convertView = mInflater.inflate(R.layout.words_table_iteam_create, null);
                         /**得到各个控件的对象*/
-                        createholder.create = (Button) convertView.findViewById(R.id.create_id);
+                        createholder.create = (ImageButton) convertView.findViewById(R.id.create_id);
+                        createholder.create.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent=new Intent();
+                                intent.setClass(SelectTable.this, CreateTableDialog.class);
+                                startActivity(intent);
+                            }
+                        });
                         convertView.setTag(createholder);//绑定ViewHolder对象
                         break;
                     default:
@@ -124,6 +160,11 @@ public class SelectTable extends AppCompatActivity {
                     case WORDSTABLE:
                         holder = (ViewHolder) convertView.getTag();//取出ViewHolder对象
                         holder.wordslist.setText(mDate.get(position).get("List").toString());
+                        int number = 0;
+                        number = position-(position/10)*10;
+                        String name = "l"+number;
+                        int id = getResources().getIdentifier(name,"drawable","com.example.rentsl.mw");
+                        holder.img.setImageResource(id);
                         holder.button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -179,11 +220,12 @@ public class SelectTable extends AppCompatActivity {
         /*** 存放控件1**/
         public final class ViewHolder {
             public TextView wordslist;
-            public Button button;
+            public ImageButton button;
+            public ImageView img;
         }
         /*** 存放控件2**/
         public final class ViewCreateHolder {
-            public Button create;
+            public ImageButton create;
         }
 
     }
