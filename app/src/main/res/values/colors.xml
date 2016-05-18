@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="maincolor">#1c96e2</color>
-    <color name="associatecolor">#41c25b</color>
+    <color name="mygreen">#41c25b</color>
     <color name="mygrey">#e6e8ea</color>
+    <color name="myred">#e7634d</color>
+    <color name="mydeepgrey">#777777</color>
 </resources>

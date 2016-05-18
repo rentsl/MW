@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -114,7 +115,7 @@ public class wordslist extends AppCompatActivity {
                         /**得到各个控件的对象*/
                         holder.Cwords = (TextView) convertView.findViewById(R.id.Textwords);
                         holder.Cexplain = (TextView) convertView.findViewById(R.id.Texttranslate);
-                        holder.Cbt = (Button) convertView.findViewById(R.id.textremovebt);
+                        holder.Cbt = (ImageButton) convertView.findViewById(R.id.textremovebt);
                         holder.Cwords.setText(mData.get(position).get("Words").toString());
                         holder.Cexplain.setText(mData.get(position).get("Explain").toString());
                         holder.Cbt.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +132,7 @@ public class wordslist extends AppCompatActivity {
                         createholder = new CViewCreateHolder();
                         convertView = mInflater.inflate(R.layout.words_item_create, null);
                         /**得到各个控件的对象*/
-                        createholder.Ccreate = (Button) convertView.findViewById(R.id.wordscreate_id);
+                        createholder.Ccreate = (ImageButton) convertView.findViewById(R.id.wordscreate_id);
                         convertView.setTag(createholder);//绑定ViewHolder对象
 
                         createholder.Ccreate.setOnClickListener(new View.OnClickListener() {
@@ -205,11 +206,11 @@ public class wordslist extends AppCompatActivity {
         public final class CViewHolder {
             public TextView Cwords;
             public TextView Cexplain;
-            public Button Cbt;
+            public ImageButton Cbt;
         }
         /*** 存放控件2**/
         public final class CViewCreateHolder {
-            public Button Ccreate;
+            public ImageButton Ccreate;
     }
 
 }

@@ -12,7 +12,6 @@
         <ImageButton android:id="@+id/create_id"
             android:layout_width="75dp"
             android:layout_height="75dp"
-
             android:src="@drawable/my_create_button"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"/>

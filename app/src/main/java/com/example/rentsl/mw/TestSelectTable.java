@@ -82,6 +82,16 @@ public class TestSelectTable extends AppCompatActivity {
                         convertView = mInflater.inflate(R.layout.test_select_table_item, null);
                         /**得到各个控件的对象*/
                         holder.wordslist = (TextView) convertView.findViewById(R.id.test_table_item_text);
+                        holder.wordslist.setText(mDate.get(position).get("List").toString());
+                        convertView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent=new Intent();
+                                intent.putExtra("tablename",mDate.get(position).get("Filename").toString());
+                                intent.setClass(TestSelectTable.this, tests.class);
+                                startActivity(intent);
+                            }
+                        });
                         convertView.setTag(holder);//绑定ViewHolder对象
                 }
 

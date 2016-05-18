@@ -1,40 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ldialog_layout"
-    android:layout_width="280dp"
+    android:layout_width="450dp"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="#369">
-
+    android:background="@drawable/list_corner_round">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="65dp"
+            android:background="@drawable/corner_top">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:text="创建单词表"
+                android:textSize="22sp"
+                android:textColor="#fff"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
 
             <EditText android:id="@+id/CEditWords"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="5dp"
                 android:maxLength="200"
-                android:hint="请输入单词"/>
+                android:hint="请输入单词"
+                android:textColorHint="@color/maincolor"
+                android:textColor="@color/mydeepgrey"/>
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp">
             <EditText android:id="@+id/CEditExplain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:maxLength="200"
-                android:hint="请输入单词解释"/>
+                android:hint="请输入单词解释"
+                android:textColorHint="@color/maincolor"
+                android:textColor="@color/mydeepgrey"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="right">
+            android:gravity="right"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp">
             <Button android:id="@+id/CSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="提交"/>
+                android:text="提交"
+                android:textColor="#fff"
+                android:background="@drawable/true_button" />
         </LinearLayout>
 
 </LinearLayout>

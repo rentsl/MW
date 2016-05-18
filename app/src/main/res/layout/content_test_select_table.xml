@@ -4,12 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mygrey"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.rentsl.mw.TestSelectTable"
     tools:showIn="@layout/activity_test_select_table">
     <ListView android:id="@+id/test_select_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/list_corner_round"
+        android:dividerHeight="2px">
     </ListView>
 
 </RelativeLayout>

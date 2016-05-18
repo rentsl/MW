@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialog_layout"
-    android:layout_width="280dp"
+    android:layout_width="450dp"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="#369">
+    android:background="@drawable/list_corner_round">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@drawable/corner_top">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:text="创建单词表"
+            android:textSize="22sp"
+            android:textColor="#fff"/>
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:padding="5dp"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        android:text="创建单词列表" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,15 +28,18 @@
         <EditText android:id="@+id/edittext_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="请输入表名"/>
+            android:layout_marginTop="40dp"
+            android:hint="请输入表名"
+            android:textColorHint="@color/maincolor"
+            android:textColor="@color/mydeepgrey"/>
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp">
 
         <Button
             android:id="@+id/exitBtn0"
@@ -39,10 +47,10 @@
             android:layout_height="wrap_content"
             android:text="取消"
             android:textSize="16sp"
-            android:textColor="#333"
+            android:textColor="#fff"
             android:gravity="center"
             android:onClick="exitbutton0"
-            android:background="#fff" />
+            android:background="@drawable/false_button"/>
 
         <Button
             android:id="@+id/exitBtn1"
@@ -51,10 +59,10 @@
             android:layout_marginLeft="10dp"
             android:text="创建"
             android:textSize="16sp"
-            android:textColor="#333"
+            android:textColor="#fff"
             android:gravity="center"
             android:onClick="exitbutton1"
-            android:background="#fff" />
+            android:background="@drawable/true_button" />
     </LinearLayout>
 
 </LinearLayout>
