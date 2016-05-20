@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -56,7 +58,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        /**状态栏透明*/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        }
 
         mDate = getDate();
         if(readFiles() == null)  writeFiles(ListToString(mDate));
@@ -100,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
 
     // 保存文件内容
@@ -218,6 +223,9 @@ public class MainActivity extends AppCompatActivity {
 //实现删除单词
 
 //存在的bug
-//输入不完整就提交的话程序会崩溃
-//单词列表重名问题（会共享一个文件）
-//单词少于4个 需要：不能进行测试
+//输入不完整就提交的话程序会崩溃√
+//单词列表重名问题（会共享一个文件）√
+//单词少于4个 需要：不能进行测试√
+//图片加载效率不高
+//未适配小屏幕
+//代码混乱

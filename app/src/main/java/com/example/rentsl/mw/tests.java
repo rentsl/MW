@@ -3,12 +3,14 @@ package com.example.rentsl.mw;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,11 @@ public class tests extends AppCompatActivity {
     public String FILENAME = "SE.set";
     ArrayList<HashMap<String, Object>> mDate;
     public String testname = null;
+    TextView words = null;
+    Button button1 = null;
+    Button button2 = null;
+    Button button3 = null;
+    Button button4 = null;
 
     int Bu[] = new int[4];
     int Tx;
@@ -40,6 +47,13 @@ public class tests extends AppCompatActivity {
         setContentView(R.layout.activity_tests);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        /**状态栏透明*/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        }
+
         Intent intent = getIntent();
         testname = intent.getStringExtra("tablename");
         if(testname != null) FILENAME = testname;
@@ -58,42 +72,38 @@ public class tests extends AppCompatActivity {
             WcreatRandom();
             TcreatRandom();
             Link();
-            final TextView words = (TextView) findViewById(R.id.Words);
-            final Button button1 = (Button) findViewById(R.id.Button1);
-            final Button button2 = (Button) findViewById(R.id.Button2);
-            final Button button3 = (Button) findViewById(R.id.Button3);
-            final Button button4 = (Button) findViewById(R.id.Button4);
-            //初始化测试页面的数据
-            words.setText(mDate.get(Tx - 1).get("Words").toString());
-            button1.setText(mDate.get(Bu[0] - 1).get("Explain").toString());
-            button2.setText(mDate.get(Bu[1] - 1).get("Explain").toString());
-            button3.setText(mDate.get(Bu[2] - 1).get("Explain").toString());
-            button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
-
+            words = (TextView) findViewById(R.id.Words);
+            button1 = (Button) findViewById(R.id.Button1);
+            button2 = (Button) findViewById(R.id.Button2);
+            button3 = (Button) findViewById(R.id.Button3);
+            button4 = (Button) findViewById(R.id.Button4);
+            buttonassign();//初始化测试页面的数据
+            /**监听函数*/
             button1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (Bu[0] == Tx)
                         Toast.makeText(getApplicationContext(), "你答对了！！" + button1.getText(), Toast.LENGTH_SHORT).show();
                     else {
-                        //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
+                        Data.setLearningfinish(1); //1
                         Intent intent = new Intent();
                         intent.putExtra("number", Tx);
+                        intent.putExtra("truewords",mDate.get(Tx-1).get("Words").toString());
+                        intent.putExtra("trueexplain",mDate.get(Tx-1).get("Explain").toString());
                         intent.setClass(tests.this, ErrorLearing.class);
                         startActivity(intent);
                     }
                     Link();
-                    words.setText(mDate.get(Tx - 1).get("Words").toString());
-                    button1.setText(mDate.get(Bu[0] - 1).get("Explain").toString());
-                    button2.setText(mDate.get(Bu[1] - 1).get("Explain").toString());
-                    button3.setText(mDate.get(Bu[2] - 1).get("Explain").toString());
-                    button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
+                    /**button赋值*/
+                    buttonassign();
+                    /**判断单词是否用完*/
                     if (wordsOver() == 1) {
                         Wrunflag = 1;
                         Intent intent = new Intent();
                         intent.setClass(tests.this, Dialog.class);
-                        startActivity(intent);
+                        startActivity(intent);//弹窗
                     }
+                    /**产生随机数*/
                     WcreatRandom();
                     TcreatRandom();
 
@@ -106,18 +116,16 @@ public class tests extends AppCompatActivity {
                     if (Bu[1] == Tx)
                         Toast.makeText(getApplicationContext(), "你答对了！！" + button2.getText(), Toast.LENGTH_SHORT).show();
                     else {
-                        //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
+                        Data.setLearningfinish(1); //1
                         Intent intent = new Intent();
                         intent.putExtra("number", Tx);
+                        intent.putExtra("truewords", mDate.get(Tx - 1).get("Words").toString());
+                        intent.putExtra("trueexplain",mDate.get(Tx-1).get("Explain").toString());
                         intent.setClass(tests.this, ErrorLearing.class);
                         startActivity(intent);
                     }
                     Link();
-                    words.setText(mDate.get(Tx - 1).get("Words").toString());
-                    button1.setText(mDate.get(Bu[0] - 1).get("Explain").toString());
-                    button2.setText(mDate.get(Bu[1] - 1).get("Explain").toString());
-                    button3.setText(mDate.get(Bu[2] - 1).get("Explain").toString());
-                    button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
+                    buttonassign();
                     if (wordsOver() == 1) {
                         Wrunflag = 1;
                         Intent intent = new Intent();
@@ -136,18 +144,16 @@ public class tests extends AppCompatActivity {
                     if (Bu[2] == Tx)
                         Toast.makeText(getApplicationContext(), "你答对了！！" + button3.getText(), Toast.LENGTH_SHORT).show();
                     else {
-                        //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
+                        Data.setLearningfinish(1); //1
                         Intent intent = new Intent();
                         intent.putExtra("number", Tx);
+                        intent.putExtra("truewords", mDate.get(Tx - 1).get("Words").toString());
+                        intent.putExtra("trueexplain",mDate.get(Tx-1).get("Explain").toString());
                         intent.setClass(tests.this, ErrorLearing.class);
                         startActivity(intent);
                     }
                     Link();
-                    words.setText(mDate.get(Tx - 1).get("Words").toString());
-                    button1.setText(mDate.get(Bu[0] - 1).get("Explain").toString());
-                    button2.setText(mDate.get(Bu[1] - 1).get("Explain").toString());
-                    button3.setText(mDate.get(Bu[2] - 1).get("Explain").toString());
-                    button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
+                    buttonassign();
                     if (wordsOver() == 1) {
                         Wrunflag = 1;
                         Intent intent = new Intent();
@@ -166,18 +172,16 @@ public class tests extends AppCompatActivity {
                     if (Bu[3] == Tx)
                         Toast.makeText(getApplicationContext(), "你答对了！！" + button4.getText(), Toast.LENGTH_SHORT).show();
                     else {
-                        //Toast.makeText(getApplicationContext(),"你猜错了！！是"+Wordslist.getString(Integer.toString(Tx-1),"0"), Toast.LENGTH_SHORT).show();
+                        Data.setLearningfinish(1); //1
                         Intent intent = new Intent();
                         intent.putExtra("number", Tx);
+                        intent.putExtra("truewords",mDate.get(Tx-1).get("Words").toString());
+                        intent.putExtra("trueexplain",mDate.get(Tx-1).get("Explain").toString());
                         intent.setClass(tests.this, ErrorLearing.class);
                         startActivity(intent);
                     }
                     Link();
-                    words.setText(mDate.get(Tx - 1).get("Words").toString());
-                    button1.setText(mDate.get(Bu[0] - 1).get("Explain").toString());
-                    button2.setText(mDate.get(Bu[1] - 1).get("Explain").toString());
-                    button3.setText(mDate.get(Bu[2] - 1).get("Explain").toString());
-                    button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
+                    buttonassign();
                     if (wordsOver() == 1) {
                         Wrunflag = 1;
                         Intent intent = new Intent();
@@ -255,22 +259,30 @@ public class tests extends AppCompatActivity {
         else flag = 0;
         return flag;
     }
-
-/*****************判断单词表是否遍历完**************/
+/*****************判断单词表内单词个数是否达到4个**************/
     private boolean checkwordsnumber(){
         if(mDate.size() < 4)
             return false;
         else
             return true;
     }
+/*****************Button赋值**************/
+    private void buttonassign(){
+        words.setText(mDate.get(Tx - 1).get("Words").toString());
+        button1.setText(mDate.get(Bu[0] - 1).get("Explain").toString());
+        button2.setText(mDate.get(Bu[1] - 1).get("Explain").toString());
+        button3.setText(mDate.get(Bu[2] - 1).get("Explain").toString());
+        button4.setText(mDate.get(Bu[3] - 1).get("Explain").toString());
+    }
 
-    //得到数据
+
+    /**得到数据*/
     public ArrayList<HashMap<String, Object>> getDate() {
         ArrayList<HashMap<String, Object>> mylist = new ArrayList<HashMap<String, Object>>();
         mylist = StringToList(readFiles());
         return mylist;
     }
-    // 保存文件内容
+    /** 保存文件内容*/
     public void writeFiles(String content) {
         try {
             // 打开文件获取输出流，文件不存在则自动创建
@@ -282,7 +294,7 @@ public class tests extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    // 读取文件内容
+    /** 读取文件内容*/
     public String readFiles() {
         String content = null;
         try {
@@ -306,7 +318,7 @@ public class tests extends AppCompatActivity {
         }
         return content;
     }
-    // 将ArrayList转成String字符串
+    /** 将ArrayList转成String字符串*/
     public String ListToString(ArrayList<HashMap<String, Object>> mdate){
         String context = "";// null时 会打印出null
         for(int i = 0;i < mdate.size();i++){
@@ -314,7 +326,7 @@ public class tests extends AppCompatActivity {
         }
         return context;
     }
-    // 将String字符串转成ArrayList
+    /** 将String字符串转成ArrayList*/
     public ArrayList<HashMap<String, Object>> StringToList(String conText){
         ArrayList<HashMap<String, Object>> mylist = new ArrayList<HashMap<String, Object>>();
         if(conText != null){
@@ -329,11 +341,10 @@ public class tests extends AppCompatActivity {
         }
         return mylist;
     }
-
 }
 
 //4.28
 //实现遍历单词表，即乱序测试所有单词。
 //选项中还会出现重复单词！？？
 //4.28.18.53
-//乱序测试所有单词后弹出窗口问是否继续
+//乱序测试所有单词后弹出窗口问是否继续√

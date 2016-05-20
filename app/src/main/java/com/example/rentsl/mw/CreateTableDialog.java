@@ -151,7 +151,6 @@ public class CreateTableDialog extends Activity {
     public void exitbutton0(View v) {
 
         this.finish();
-        tests.instance.finish();//tests 这个Activity
     }
     /**检查新建的表名是否重复*/
     public boolean checkname(String name){

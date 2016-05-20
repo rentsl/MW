@@ -13,22 +13,8 @@ import java.util.ArrayList;
 
 
 public class Data {
-    private static SharedPreferences keynum;
-
-    public static ArrayList wordsnumber = new ArrayList();
-    public static void setWordsnumber(Context context){
-        keynum = context.getSharedPreferences("Keynum",context.MODE_PRIVATE);
-        //keynum.edit();
-
-        int num = keynum.getInt("number",0);
-        int listsize = wordsnumber.size();
-        //初始化前先清除所有项
-            for(int j = 0;j < listsize;j++){
-                wordsnumber.remove(0);
-            }
-
-        for(int i = 0;i < num;i++)
-        wordsnumber.add(i);
+    public static int learningfinish = 0;
+    public static void setLearningfinish(int num){
+        learningfinish = num;
     }
-
 }

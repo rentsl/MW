@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.rentsl.mw.tests"
+    android:background="#fff"
     tools:showIn="@layout/activity_tests">
     <LinearLayout android:id="@+id/div_tests"
         android:layout_width="match_parent"
