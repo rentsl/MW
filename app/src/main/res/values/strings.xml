@@ -7,4 +7,6 @@
     <string name="title_activity_error_learing">ErrorLearing</string>
     <string name="title_activity_select_table">SelectTable</string>
     <string name="title_activity_test_select_table">TestSelectTable</string>
+    <string name="test">测试</string>
+    <string name="manage">管理</string>
 </resources>
